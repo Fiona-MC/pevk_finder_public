@@ -26,7 +26,9 @@ Command line instructions (with suggested parameter settings):
 
     ex: python -W ignore pevk_finder_v_1.py -i ./ttn_seqs/Homo_sapiens_ttn.fasta -w 10 -r 0.54 -l 12
 
-3. The output files will be depostied within the current directory. Fasta files can be viewed with any text editor
+Exon libraries will be deposited in the ./data/ directory by default, and separated into bounded/unbounded and translated/untranslated directories.
+
+Fasta files can be viewed with any text editor.
 
 """
 
@@ -553,17 +555,31 @@ def pevk_finder(nt_seq, length, in_ratio, min_length, outpath, optional_outputs)
 
     # 'Best guess' exon boundaries output:
     # Create an output file with the amino acid sequences for all found PEVK exons (location relative to full titin DNA sequence)
-    SeqIO.write(sorted_prot[lower_bound_index:upper_bound_index+1], outpath + species_name +"PEVK_exons_AA_bounded.fasta", "fasta")
+    bounded_aa_outdir = outpath + "bounded/translated/"
+    if not os.path.exists(bounded_aa_outdir):
+        os.makedirs(bounded_aa_outdir)
+    bounded_nt_outdir = outpath + "bounded/untranslated/"
+    if not os.path.exists(bounded_nt_outdir):
+        os.makedirs(bounded_nt_outdir)
+    unbounded_aa_outdir = outpath + "unbounded/translated/"
+    if not os.path.exists(unbounded_aa_outdir):
+        os.makedirs(unbounded_aa_outdir)
+    unbounded_nt_outdir = outpath + "unbounded/untranslated/"
+    if not os.path.exists(unbounded_nt_outdir):
+        os.makedirs(unbounded_nt_outdir)
+
+
+    SeqIO.write(sorted_prot[lower_bound_index:upper_bound_index+1], bounded_aa_outdir + species_name +"PEVK_exons_AA_bounded.fasta", "fasta")
     # Create an output file with the nucleotide sequences for all found PEVK exons (location relative to full titin DNA sequence)
-    SeqIO.write(sorted_nuc[lower_bound_index:upper_bound_index+1], outpath + species_name +"PEVK_exons_NT_bounded.fasta", "fasta")
+    SeqIO.write(sorted_nuc[lower_bound_index:upper_bound_index+1], bounded_nt_outdir + species_name +"PEVK_exons_NT_bounded.fasta", "fasta")
 
 
     # All exons (no boundaries) output:
     # Create an output file with the amino acid sequences for all found PEVK exons (location relative to full titin DNA sequence)
-    SeqIO.write(sorted_prot, outpath + species_name +"PEVK_exons_AA_unbounded.fasta", "fasta")
+    SeqIO.write(sorted_prot, unbounded_aa_outdir + species_name +"PEVK_exons_AA_unbounded.fasta", "fasta")
 
     # Create an output file with the nucleotide sequences for all found PEVK exons (location relative to full titin DNA sequence)
-    SeqIO.write(sorted_nuc, outpath + species_name +"PEVK_exons_NT_unbounded.fasta", "fasta")
+    SeqIO.write(sorted_nuc, unbounded_nt_outdir + species_name +"PEVK_exons_NT_unbounded.fasta", "fasta")
 
 
 
