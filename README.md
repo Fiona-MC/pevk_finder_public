@@ -41,3 +41,14 @@ Four output files per input sequence, containing exon sets with the following ch
     nucleotide sequences, sorted by titin location. Coordinates in sequence descriptions
     are relative to full titin DNA sequence.# Running PEVK_Finder in the command line
 
+## Running PEVK_Finder in the Command Line
+
+To run PEVK_Finder on **one TTN nucleotide sequence** using default parameters, run the following command from the pevk_finder_public directory:
+```bash
+python -W ignore pevk_finder_v_1.py -i [species_name]_ttn.fasta
+```
+
+To run PEVK_Finder on **multiple TTN sequences** using default parameters, run the following command from the pevk_finder_public directory:
+```bash
+python -W ignore pevk_finder_v_1.py -i [directory_with_tnn_seqs]
+```
