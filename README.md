@@ -4,7 +4,7 @@ The PEVK_Finder program requires the filepath to a complete TTN nucleotide seque
 
 ### Flags
 **-i (--input)**<br/>
-Path to the file(s) that contain the full TTN nucleotide sequence.<br/>
+Path to the fasta file(s) that contain the full TTN nucleotide sequence.<br/>
 <br/>
 **-w (--window_length)**<br/>
 The integer value of the sliding window length that PEVK_Finder will use to find likely PEVK exons. **Default: 10**<br/>
