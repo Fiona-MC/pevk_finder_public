@@ -1,6 +1,6 @@
 ## Inputs and Outputs
 ### Required Input
-The PEVK_Finder program requires the filepath to the complete TTN nucleotide sequence (in fasta format), or the path to the directory containing one or more TTN sequences.
+The PEVK_Finder program requires the filepath to a complete TTN nucleotide sequence (in fasta format), or the path to a directory containing one or more TTN sequences.
 
 ### Flags
 **-i (--input)**<br/>
@@ -29,17 +29,14 @@ When optional_outputs is True, will create the two optional output files contain
 Four output files per input sequence, containing exon sets with the following characteristics:
 
 1. [species_name]_PEVK_exons_unbounded_AA.fasta (Fasta file): ALL predicted PEVK exons as
-    amino acid sequences, sorted by location. Coordinates in sequence descriptions
-    are relative to the corresponding reading frame.
+    amino acid sequences, sorted by location. **For all output files, coordinates in sequence descriptions
+    are relative to full TTN DNA sequence**
 2. [species_name]_PEVK_exons_unbounded_NT.fasta (Fasta file): ALL predicted PEVK exons as
-    nucleotide sequences, sorted by increasing TTN coordinates. Coordinates in sequence descriptions
-    are relative to full TTN DNA sequence.
+    nucleotide sequences, sorted by increasing TTN coordinates.
 3. [species_name]_PEVK_exons_bounded_AA.fasta (Fasta file): IQR +- (1.5 x IQR) predicted PEVK exons as
-    amino acid sequences, sorted by increasing TTN coordinates. Coordinates in sequence descriptions
-    are relative to the corresponding reading frame.
+    amino acid sequences, sorted by increasing TTN coordinates.
 4. [species_name]_PEVK_exons_bounded_NT.fasta (Fasta file): IQR +- (1.5 x IQR) predicted PEVK exons as
-    nucleotide sequences, sorted by TTN location. Coordinates in sequence descriptions
-    are relative to full TTN DNA sequence.# Running PEVK_Finder in the command line
+    nucleotide sequences, sorted by TTN location.
 
 ## Running PEVK_Finder in the Command Line
 
