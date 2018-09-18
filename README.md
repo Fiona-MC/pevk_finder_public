@@ -22,7 +22,7 @@ The path to the directory where the output files will be stored. **Default: ./da
 When verbose is True, will emit messages about script progress. **Default: True**<br/>
 <br/>
 **-p (--optional_outputs)**<br/>
-When optional_outputs is True, will create the two optional output files containing exon length and PEVK ratio information. **Default: False**<br/>
+When optional_outputs is True, will create the two optional output files containing exon length, PEVK ratio and coordinate information. **Default: False**<br/>
 <br/>
 
 ### Output
