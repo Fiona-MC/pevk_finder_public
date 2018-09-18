@@ -28,15 +28,20 @@ When optional_outputs is True, will create the two optional output files contain
 ### Output
 Four output files per input sequence, containing exon sets with the following characteristics:
 
-1. [species_name]_PEVK_exons_unbounded_AA.fasta (Fasta file): ALL predicted PEVK exons as
+1. [species_name]_PEVK_exons_unbounded_AA_[w]_[r]_[l].fasta (Fasta file): ALL predicted PEVK exons as
     amino acid sequences, sorted by location. **For all output files, coordinates in sequence descriptions
     are relative to full TTN DNA sequence.**
-2. [species_name]_PEVK_exons_unbounded_NT.fasta (Fasta file): ALL predicted PEVK exons as
+2. [species_name]_PEVK_exons_unbounded_NT_[w]_[r]_[l].fasta (Fasta file): ALL predicted PEVK exons as
     nucleotide sequences, sorted by increasing TTN coordinates.
-3. [species_name]_PEVK_exons_bounded_AA.fasta (Fasta file): IQR +- (1.5 x IQR) predicted PEVK exons as
+3. [species_name]_PEVK_exons_bounded_AA_[w]_[r]_[l].fasta (Fasta file): IQR +- (1.5 x IQR) predicted PEVK exons as
     amino acid sequences, sorted by increasing TTN coordinates.
-4. [species_name]_PEVK_exons_bounded_NT.fasta (Fasta file): IQR +- (1.5 x IQR) predicted PEVK exons as
+4. [species_name]_PEVK_exons_bounded_NT_[w]_[r]_[l].fasta (Fasta file): IQR +- (1.5 x IQR) predicted PEVK exons as
     nucleotide sequences, sorted by TTN location.
+
+Two optional output files per sequence:
+
+1. [species_name]_exon_coordinates_[w]_[r]_[l].csv (CSV file): The start and end coordinates of each predicted PEVK exon.
+1. [species_name]_exon_lengths_and_ratios_[w]_[r]_[l].csv (CSV file): The exon length and PEVK ratio for each predicted PEVK exon
 
 ## Running PEVK_Finder in the Command Line
 
