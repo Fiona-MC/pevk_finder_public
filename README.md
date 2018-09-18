@@ -1,6 +1,6 @@
 ## Inputs and Outputs
 ### Required Input
-The PEVK_Finder program requires the filepath to the complete titin nucleotide sequence (in fasta format), or the path to the directory containing one or more titin sequences.
+The PEVK_Finder program requires the filepath to the complete TTN nucleotide sequence (in fasta format), or the path to the directory containing one or more TTN sequences.
 
 ### Flags
 **-i (--input)**<br/>
@@ -29,17 +29,17 @@ When optional_outputs is True, will create the two optional output files contain
 Four output files per input sequence, containing exon sets with the following characteristics:
 
 1. [species_name]_PEVK_exons_unbounded_AA.fasta (Fasta file): ALL predicted PEVK exons as
-    amino acid sequences, sorted by titin location. Coordinates in sequence descriptions
+    amino acid sequences, sorted by location. Coordinates in sequence descriptions
     are relative to the corresponding reading frame.
 2. [species_name]_PEVK_exons_unbounded_NT.fasta (Fasta file): ALL predicted PEVK exons as
-    nucleotide sequences, sorted by titin location. Coordinates in sequence descriptions
-    are relative to full titin DNA sequence.
+    nucleotide sequences, sorted by increasing TTN coordinates. Coordinates in sequence descriptions
+    are relative to full TTN DNA sequence.
 3. [species_name]_PEVK_exons_bounded_AA.fasta (Fasta file): IQR +- (1.5 x IQR) predicted PEVK exons as
-    amino acid sequences, sorted by titin location. Coordinates in sequence descriptions
+    amino acid sequences, sorted by increasing TTN coordinates. Coordinates in sequence descriptions
     are relative to the corresponding reading frame.
 4. [species_name]_PEVK_exons_bounded_NT.fasta (Fasta file): IQR +- (1.5 x IQR) predicted PEVK exons as
-    nucleotide sequences, sorted by titin location. Coordinates in sequence descriptions
-    are relative to full titin DNA sequence.# Running PEVK_Finder in the command line
+    nucleotide sequences, sorted by TTN location. Coordinates in sequence descriptions
+    are relative to full TTN DNA sequence.# Running PEVK_Finder in the command line
 
 ## Running PEVK_Finder in the Command Line
 
