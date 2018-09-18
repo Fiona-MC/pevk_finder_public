@@ -597,7 +597,10 @@ def pevk_finder(nt_seq, length, in_ratio, min_length, outpath, optional_outputs)
 
     if optional_outputs == True:
         # Optional output 1: Create a csv file that contains the exon names and their corresponding lengths and PEVK ratios
-        with open(outpath + species_name + 'test_lengths_and_ratios'+"_"+str(length)+"_"+str(in_ratio)+"_"+str(min_length)+".csv", 'w') as csv_file:
+        lengths_and_ratios_outdir = outpath + "exon_lengths_and_ratios/"
+        if not os.path.exists(lengths_and_ratios_outdir):
+            os.makedirs(lengths_and_ratios_outdir)
+        with open(lengths_and_ratios_outdir + species_name + 'exon_lengths_and_ratios'+"_"+str(length)+"_"+str(in_ratio)+"_"+str(min_length)+".csv", 'w') as csv_file:
             wr = csv.writer(csv_file, delimiter=',')
             wr.writerow(names)
             wr.writerow(lengths)
@@ -605,7 +608,10 @@ def pevk_finder(nt_seq, length, in_ratio, min_length, outpath, optional_outputs)
 
 
         # Optional output 2: Create a csv file with frames, starts, ends and lengths
-        with open(outpath + species_name + 'test_locations'+"_"+str(length)+"_"+str(in_ratio)+"_"+str(min_length)+".csv", 'w') as csv_file:
+        coordinates_outdir = outpath + "exon_coordinates/"
+        if not os.path.exists(coordinates_outdir):
+            os.makedirs(coordinates_outdir)
+        with open(coordinates_outdir + species_name + 'exon_coordinates'+"_"+str(length)+"_"+str(in_ratio)+"_"+str(min_length)+".csv", 'w') as csv_file:
             wr = csv.writer(csv_file, delimiter=',')
             wr.writerow(frame_names)
             wr.writerow(starts)
@@ -618,10 +624,10 @@ def main():
     # get input/output/filename
     ap = argparse.ArgumentParser()
     ap.add_argument("-i", "--input", default="./ttn_seqs/Homo_sapiens_ttn.fasta",
-                   help="Path to the file that contains the full titin nucleotide sequence, the default is ./ttn_seqs/Homo_sapiens_ttn.fasta",
+                   help="Path to the file(s) that contain the full titin nucleotide sequence, the default is ./ttn_seqs/Homo_sapiens_ttn.fasta",
                    type=str)
     ap.add_argument("-w", "--window_length", default=10,
-                   help="The integer value of the sliding window length that PEVK Finder will use to find PEVk exons, the default is 10",
+                   help="The integer value of the sliding window length that PEVK Finder will use to find PEVK exons, the default is 10",
                    type=int)
     ap.add_argument("-r", "--pevk_ratio", default=0.54,
                    help="The float value of the minimum PEVK ratio that PEVK Finder will use to find PEVK exons, the default is 0.54",
@@ -629,14 +635,14 @@ def main():
     ap.add_argument("-l", "--exon_length", default=12,
                    help="The integer value of the minimum PEVK exon length that PEVK Finder will use to find PEVK exons, the default is 12",
                    type=int)
-    ap.add_argument("-o", "--output", default="./data/",
+    ap.add_argument("-o", "--outpath", default="./data/",
                    help="Path to the directory where the output files will be stored, the default is ./data/",
                    type=str)
     ap.add_argument("-v", "--verbose", default=True,
                    help="When verbose is True, will emit messages about script progress, the default is True",
                    type=lambda x:bool(distutils.util.strtobool(x)))
     ap.add_argument("-p", "--optional_outputs", default=False,
-                   help="When optional_outputs is True, will create the two optional output files, the default is False",
+                   help="When optional_outputs is True, will create the two optional output files containing exon length, PEVK ratio and coordinate information, the default is False",
                    type=lambda x:bool(distutils.util.strtobool(x)))
 
     args = ap.parse_args()
@@ -655,10 +661,10 @@ def main():
             if filename.endswith('.fasta'):
                 print "RUNNING: " + filename
                 filepath = args.input + filename
-                pevk_finder(filepath, args.window_length, args.pevk_ratio, args.exon_length, args.output, args.optional_outputs)
+                pevk_finder(filepath, args.window_length, args.pevk_ratio, args.exon_length, args.outpath, args.optional_outputs)
     if not os.path.isdir(args.input):
         print "RUNNING: " + args.input
-        pevk_finder(args.input, args.window_length, args.pevk_ratio, args.exon_length, args.output, args.optional_outputs)
+        pevk_finder(args.input, args.window_length, args.pevk_ratio, args.exon_length, args.outpath, args.optional_outputs)
 
     # Write output files
 
