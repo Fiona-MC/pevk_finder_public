@@ -7,13 +7,13 @@ The PEVK_Finder program requires the filepath to a complete TTN nucleotide seque
 Path to the fasta file(s) that contain the full TTN nucleotide sequence.<br/>
 <br/>
 **-w (--window_length)**<br/>
-The integer value of the sliding window length that PEVK_Finder will use to find likely PEVK exons. **Default: 10**<br/>
+The integer value of the sliding window length that PEVK_Finder will use to identify likely PEVK exons. **Default: 10**<br/>
 <br/>
 **-r (--pevk_ratio)**<br/>
-The float value of the minimum PEVK ratio that PEVK_Finder will use to find likely PEVK exons. **Default: 0.54**<br/>
+The float value of the minimum PEVK ratio that PEVK_Finder will use to identify likely PEVK exons. **Default: 0.54**<br/>
 <br/>
 **-l (--exon_length)**<br/>
-The integer value of the minimum PEVK exon length that PEVK_Finder will use to find likely PEVK exons. **Default: 12**<br/>
+The integer value of the minimum PEVK exon length that PEVK_Finder will use to identify likely PEVK exons. **Default: 12**<br/>
 <br/>
 **-o (--outpath)**<br/>
 The path to the directory where the output files will be stored. **Default: ./data/**<br/>
