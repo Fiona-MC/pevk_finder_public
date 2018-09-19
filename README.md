@@ -28,7 +28,7 @@ When optional_outputs is True, will create the two optional output files contain
 ### Output
 Four output files per input sequence, containing exon sets with the following characteristics:
 
-1. (species_name)_PEVK_exons_unbounded_AA_(w_r_l).fasta (Fasta file): ALL predicted PEVK exons as
+1. (species_name_)PEVK_exons_unbounded_AA_(w_r_l).fasta (Fasta file): ALL predicted PEVK exons as
     amino acid sequences, sorted by location. **For all output files, coordinates in sequence descriptions
     are relative to full TTN DNA sequence.**
 2. (species_name)_PEVK_exons_unbounded_NT_(w_r_l).fasta (Fasta file): ALL predicted PEVK exons as
