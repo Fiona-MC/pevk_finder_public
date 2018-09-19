@@ -41,7 +41,7 @@ Four output files per input sequence, containing exon sets with the following ch
 Two optional output files per input sequence:
 
 1. (species_name_)exon_coordinates(_w_r_l).csv (CSV file): The start and end coordinates of each predicted PEVK exon.
-1. (species_name_)exon_lengths_and_ratios(_w_r_l).csv (CSV file): The exon length and PEVK ratio for each predicted PEVK exon
+1. (species_name_)exon_lengths_and_ratios(_w_r_l).csv (CSV file): The exon length and PEVK ratio for each predicted PEVK exon.
 
 ## Running PEVK_Finder in the Command Line
 
