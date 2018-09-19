@@ -38,7 +38,7 @@ Four output files per input sequence, containing exon sets with the following ch
 4. (species_name_)PEVK_exons_bounded_NT(_w_r_l).fasta (Fasta file): IQR +- (1.5 x IQR) predicted PEVK exons as
     nucleotide sequences, sorted by increasing TTN coordinates.
 
-Two optional output files per sequence:
+Two optional output files per input sequence:
 
 1. (species_name_)exon_coordinates(_w_r_l).csv (CSV file): The start and end coordinates of each predicted PEVK exon.
 1. (species_name_)exon_lengths_and_ratios(_w_r_l).csv (CSV file): The exon length and PEVK ratio for each predicted PEVK exon
