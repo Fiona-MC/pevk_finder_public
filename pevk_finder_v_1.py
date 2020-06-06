@@ -8,13 +8,17 @@ Inputs:
     3. The minimum PEVK ratio (float)
     4. The minimum PEVK exon length (int)
 
-Outputs:
-    1. [species_name]_PEVK_exons_AA.fasta (Fasta file): all predicted PEVK exons as
-    amino acid sequences, sorted by titin location. Coordinates in sequence descriptions
-    are relative to the corresponding reading frame.
-    2. [species_name]_PEVK_exons_NT.fasta (Fasta file): all predicted PEVK exons as
-    nucleotide sequences, sorted by titin location. Coordinates in sequence descriptions
-    are relative to full titin DNA sequence.
+Output
+Four output files per input sequence, containing exon sets with the following characteristics:
+
+(species_name_)PEVK_exons_unbounded_AA(_w_r_l).fasta (Fasta file): ALL predicted PEVK exons as amino acid sequences, sorted by increasing TTN coordinates. For all output files, coordinates in sequence descriptions are relative to full TTN DNA sequence.
+(species_name_)PEVK_exons_unbounded_NT(_w_r_l).fasta (Fasta file): ALL predicted PEVK exons as nucleotide sequences, sorted by increasing TTN coordinates.
+(species_name_)PEVK_exons_bounded_AA(_w_r_l).fasta (Fasta file): IQR +- (1.5 x IQR) predicted PEVK exons as amino acid sequences, sorted by increasing TTN coordinates.
+(species_name_)PEVK_exons_bounded_NT(_w_r_l).fasta (Fasta file): IQR +- (1.5 x IQR) predicted PEVK exons as nucleotide sequences, sorted by increasing TTN coordinates.
+Two optional output files per input sequence:
+
+(species_name_)exon_coordinates(_w_r_l).csv (CSV file): The start and end coordinates of each predicted PEVK exon.
+(species_name_)exon_lengths_and_ratios(_w_r_l).csv (CSV file): The exon length and PEVK ratio for each predicted PEVK exon.
 
 This version should be compatible with both Python 2.7 and Python 3
 
