@@ -628,7 +628,7 @@ def main():
     ap.add_argument("-l", "--exon_length", default=12,
                    help="The integer value of the minimum PEVK exon length that PEVK Finder will use to find PEVK exons, the default is 12",
                    type=int)
-    ap.add_argument("-o", "--outpath", default="./data/",
+    ap.add_argument("-o", "--outpath", default="./",
                    help="Path to the directory where the output files will be stored, the default is ./data/",
                    type=str)
     ap.add_argument("-v", "--verbose", default=True,
