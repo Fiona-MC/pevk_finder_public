@@ -1,13 +1,12 @@
+
 """
 The pevk_finder.py algorithm is designed to annotate the exon-intron structure of 
 the PEVK segment of titin, given any given mammalian titin nucleotide sequence.
-
 Inputs:
     1. The complete titin nucleotide sequence for the current species (Fasta file)
     2. The length of the sliding window (int)
     3. The minimum PEVK ratio (float)
     4. The minimum PEVK exon length (int)
-
 Outputs:
     1. [species_name]_PEVK_exons_unbounded_AA.fasta (Fasta file): ALL predicted PEVK exons as
     amino acid sequences, sorted by titin location. Coordinates in sequence descriptions
@@ -21,7 +20,6 @@ Outputs:
     4. [species_name]_PEVK_exons_bounded_NT.fasta (Fasta file): IQR +- (1.5 x IQR) predicted PEVK exons as
     nucleotide sequences, sorted by titin location. Coordinates in sequence descriptions
     are relative to full titin DNA sequence.
-
 Command line instructions (with suggested parameter settings):
 1. Navigate to the directory (using cd) where this script and the titin DNA sequence fasta file are saved
 2a. To run PEVK_finder on a single DNA sequence, use the following command:
@@ -32,13 +30,9 @@ Command line instructions (with suggested parameter settings):
     
     python -W ignore pevk_finder_v_1.py -i [directory_with_tnn_seqs] -w window_length -r minimum_pevk_ratio -l minimum_exon_length
     ex: python -W ignore pevk_finder_v_1.py -i ./ttn_seqs/ -w 10 -r 0.54 -l 12
-Exon libraries will be deposited in the current directory by default.
-
-This version should be compatible with both Python 2.7 and Python 3
-
-Note: You can also input a folder with .fasta files in it and the script will run on all of those files.
+Exon libraries will be deposited in the ./data/ directory by default, and separated into bounded/unbounded and translated/untranslated directories.
+Fasta files can be viewed with any text editor.
 """
-
 
 
 # Import libraries
@@ -263,8 +257,8 @@ def generate_candidate_seqs(seq, seq_start, seq_end, identification, nucleotide_
                         final_seq =  str(Seq(nuc_ref_seq[acceptor_g_location+3:donor_g1_location]).translate())
 
                         # Define the relative start and end positions (within the local amino acid sequence) of the final sequence
-                        relative_seq_start = (acceptor_g_location//3)+1
-                        relative_seq_end = donor_g1_location//3
+                        relative_seq_start = (acceptor_g_location/3)+1
+                        relative_seq_end = donor_g1_location/3
                         
                         # Define the relative start and end positions of the sequence within the whole amino acid sequence
                         absolute_seq_start = seq_start + relative_seq_start
@@ -634,8 +628,8 @@ def main():
     ap.add_argument("-l", "--exon_length", default=12,
                    help="The integer value of the minimum PEVK exon length that PEVK Finder will use to find PEVK exons, the default is 12",
                    type=int)
-    ap.add_argument("-o", "--outpath", default="./",
-                   help="Path to the directory where the output files will be stored, the default is the current directory",
+    ap.add_argument("-o", "--outpath", default="./data/",
+                   help="Path to the directory where the output files will be stored, the default is ./data/",
                    type=str)
     ap.add_argument("-v", "--verbose", default=True,
                    help="When verbose is True, will emit messages about script progress, the default is True",
@@ -648,21 +642,21 @@ def main():
 
     if args.verbose:
         print("\n")
-        print ("Titin Sequence(s): " + str(args.input))
-        print ("Sliding Window Length: " + str(args.window_length))
-        print ("Minimum PEVK Ratio: " + str(args.pevk_ratio))
-        print ("Minimum Exon Length: " + str(args.exon_length))
+        print "Titin Sequence(s): " + str(args.input)
+        print "Sliding Window Length: " + str(args.window_length)
+        print "Minimum PEVK Ratio: " + str(args.pevk_ratio)
+        print "Minimum Exon Length: " + str(args.exon_length)
         print("\n")
     
     # Run PEVK Finder
     if os.path.isdir(args.input):
         for filename in os.listdir(args.input):
             if filename.endswith('.fasta'):
-                print ("RUNNING: " + filename)
+                print "RUNNING: " + filename
                 filepath = args.input + filename
                 pevk_finder(filepath, args.window_length, args.pevk_ratio, args.exon_length, args.outpath, args.optional_outputs)
     if not os.path.isdir(args.input):
-        print ("RUNNING: " + args.input)
+        print "RUNNING: " + args.input
         pevk_finder(args.input, args.window_length, args.pevk_ratio, args.exon_length, args.outpath, args.optional_outputs)
 
     # Write output files
