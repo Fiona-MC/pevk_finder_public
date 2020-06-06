@@ -8,29 +8,32 @@ Inputs:
     3. The minimum PEVK ratio (float)
     4. The minimum PEVK exon length (int)
 
-Output
-Four output files per input sequence, containing exon sets with the following characteristics:
-
-(species_name_)PEVK_exons_unbounded_AA(_w_r_l).fasta (Fasta file): ALL predicted PEVK exons as amino acid sequences, sorted by increasing TTN coordinates. For all output files, coordinates in sequence descriptions are relative to full TTN DNA sequence.
-(species_name_)PEVK_exons_unbounded_NT(_w_r_l).fasta (Fasta file): ALL predicted PEVK exons as nucleotide sequences, sorted by increasing TTN coordinates.
-(species_name_)PEVK_exons_bounded_AA(_w_r_l).fasta (Fasta file): IQR +- (1.5 x IQR) predicted PEVK exons as amino acid sequences, sorted by increasing TTN coordinates.
-(species_name_)PEVK_exons_bounded_NT(_w_r_l).fasta (Fasta file): IQR +- (1.5 x IQR) predicted PEVK exons as nucleotide sequences, sorted by increasing TTN coordinates.
-Two optional output files per input sequence:
-
-(species_name_)exon_coordinates(_w_r_l).csv (CSV file): The start and end coordinates of each predicted PEVK exon.
-(species_name_)exon_lengths_and_ratios(_w_r_l).csv (CSV file): The exon length and PEVK ratio for each predicted PEVK exon.
+Outputs:
+    1. [species_name]_PEVK_exons_unbounded_AA.fasta (Fasta file): ALL predicted PEVK exons as
+    amino acid sequences, sorted by titin location. Coordinates in sequence descriptions
+    are relative to the corresponding reading frame.
+    2. [species_name]_PEVK_exons_unbounded_NT.fasta (Fasta file): ALL predicted PEVK exons as
+    nucleotide sequences, sorted by titin location. Coordinates in sequence descriptions
+    are relative to full titin DNA sequence.
+    3. [species_name]_PEVK_exons_bounded_AA.fasta (Fasta file): IQR +- (1.5 x IQR) predicted PEVK exons as
+    amino acid sequences, sorted by titin location. Coordinates in sequence descriptions
+    are relative to the corresponding reading frame.
+    4. [species_name]_PEVK_exons_bounded_NT.fasta (Fasta file): IQR +- (1.5 x IQR) predicted PEVK exons as
+    nucleotide sequences, sorted by titin location. Coordinates in sequence descriptions
+    are relative to full titin DNA sequence.
+Command line instructions (with suggested parameter settings):
+1. Navigate to the directory (using cd) where this script and the titin DNA sequence fasta file are saved
+2a. To run PEVK_finder on a single DNA sequence, use the following command:
+    
+    python -W ignore pevk_finder_v_1.py -i [species_name]_ttn.fasta -w window_length -r minimum_pevk_ratio -l minimum_exon_length
+    ex: python -W ignore pevk_finder_v_1.py -i ./ttn_seqs/Homo_sapiens_ttn.fasta -w 10 -r 0.54 -l 12
+2b. To run PEVK_finder on multiple DNA sequences at once, use the following command:
+    
+    python -W ignore pevk_finder_v_1.py -i [directory_with_tnn_seqs] -w window_length -r minimum_pevk_ratio -l minimum_exon_length
+    ex: python -W ignore pevk_finder_v_1.py -i ./ttn_seqs/ -w 10 -r 0.54 -l 12
+Exon libraries will be deposited in the current directory by default.
 
 This version should be compatible with both Python 2.7 and Python 3
-
-Command line instructions (Edited by Fiona):
-1. Navigate to the directory (using cd) where this script and the titin DNA sequence fasta file are saved
-2. Use the following command:
-    
-    python -W ignore ~/path/to/script/pevk_finder_v_1.py -i ~/path/to/TTN/sequence/filename.fasta -o ~/path/to/existing/output/folder/ -w window_length -r minimum_pevk_ratio -l minimum_exon_length
-
-    ex: python -W ignore pevk_finder_v_1.py -i ./ttn_seqs/Homo_sapiens_ttn.fasta -o ./output_folder/ -w 10 -r 0.54 -l 12
-
-3. The output files will be depostied within the current directory if no output folder specified. Fasta files can be viewed with any text editor
 
 Note: You can also input a folder with .fasta files in it and the script will run on all of those files.
 """
