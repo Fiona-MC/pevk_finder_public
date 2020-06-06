@@ -2,6 +2,7 @@
 """
 The pevk_finder.py algorithm is designed to annotate the exon-intron structure of 
 the PEVK segment of titin, given any given mammalian titin nucleotide sequence.
+
 Inputs:
     1. The complete titin nucleotide sequence for the current species (Fasta file)
     2. The length of the sliding window (int)
