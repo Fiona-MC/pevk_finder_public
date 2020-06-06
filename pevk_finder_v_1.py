@@ -258,8 +258,8 @@ def generate_candidate_seqs(seq, seq_start, seq_end, identification, nucleotide_
                         final_seq =  str(Seq(nuc_ref_seq[acceptor_g_location+3:donor_g1_location]).translate())
 
                         # Define the relative start and end positions (within the local amino acid sequence) of the final sequence
-                        relative_seq_start = (acceptor_g_location/3)+1
-                        relative_seq_end = donor_g1_location/3
+                        relative_seq_start = (acceptor_g_location//3)+1
+                        relative_seq_end = donor_g1_location//3
                         
                         # Define the relative start and end positions of the sequence within the whole amino acid sequence
                         absolute_seq_start = seq_start + relative_seq_start
@@ -643,21 +643,21 @@ def main():
 
     if args.verbose:
         print("\n")
-        print "Titin Sequence(s): " + str(args.input)
-        print "Sliding Window Length: " + str(args.window_length)
-        print "Minimum PEVK Ratio: " + str(args.pevk_ratio)
-        print "Minimum Exon Length: " + str(args.exon_length)
+        print ("Titin Sequence(s): " + str(args.input))
+        print ("Sliding Window Length: " + str(args.window_length))
+        print ("Minimum PEVK Ratio: " + str(args.pevk_ratio))
+        print ("Minimum Exon Length: " + str(args.exon_length))
         print("\n")
     
     # Run PEVK Finder
     if os.path.isdir(args.input):
         for filename in os.listdir(args.input):
             if filename.endswith('.fasta'):
-                print "RUNNING: " + filename
+                print ("RUNNING: " + filename)
                 filepath = args.input + filename
                 pevk_finder(filepath, args.window_length, args.pevk_ratio, args.exon_length, args.outpath, args.optional_outputs)
     if not os.path.isdir(args.input):
-        print "RUNNING: " + args.input
+        print ("RUNNING: " + args.input)
         pevk_finder(args.input, args.window_length, args.pevk_ratio, args.exon_length, args.outpath, args.optional_outputs)
 
     # Write output files
