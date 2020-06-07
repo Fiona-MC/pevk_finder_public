@@ -1,5 +1,6 @@
 
 """
+This version should be compatibel with python 2.7 and above and python 3
 The pevk_finder.py algorithm is designed to annotate the exon-intron structure of 
 the PEVK segment of titin, given any given mammalian titin nucleotide sequence.
 
@@ -31,7 +32,7 @@ Command line instructions (with suggested parameter settings):
     
     python -W ignore pevk_finder_v_1.py -i [directory_with_tnn_seqs] -w window_length -r minimum_pevk_ratio -l minimum_exon_length
     ex: python -W ignore pevk_finder_v_1.py -i ./ttn_seqs/ -w 10 -r 0.54 -l 12
-Exon libraries will be deposited in the ./data/ directory by default, and separated into bounded/unbounded and translated/untranslated directories.
+Exon libraries will be deposited in the current directory by default, and separated into bounded/unbounded and translated/untranslated directories.
 Fasta files can be viewed with any text editor.
 """
 
