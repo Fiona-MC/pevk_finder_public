@@ -117,7 +117,7 @@ def generate_candidate_seqs(seq, seq_start, seq_end, identification, nucleotide_
     if len(seq) > input_frame_length:
         primary_positions = [] # list that will hold the start positions of each each PEVK frame in the forward direction
         
-        # Fill the primary_positions list the start locations of each frame with PEVK ratio greater than the ratio parameter
+        # Fill the primary_positions list the start locations of each frame (window) with PEVK ratio greater than the ratio parameter
         for i in range(0, len(seq) - input_frame_length):
             frame = seq[i:i+input_frame_length]
             counts = pevk_counter(frame)
@@ -132,7 +132,7 @@ def generate_candidate_seqs(seq, seq_start, seq_end, identification, nucleotide_
 
         ### CASE 2b: There is at least one frame with a high PEVK ratio
         else:
-            # Create a list that contains distinct groupings of high PEVK ratio groupings
+            # Create a list that contains distinct groupings of high PEVK ratio windows
             group_positions = [] # the start points of each grouping
             groupings = [] # the list that will contain the actual groups
             temp_min = primary_positions[0]
