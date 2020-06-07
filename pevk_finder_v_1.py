@@ -186,13 +186,13 @@ def generate_candidate_seqs(seq, seq_start, seq_end, identification, nucleotide_
                 # First go backwards to look for the ACCEPTOR splice site
                 for i in range(NT_starting_point,0,-1):
                     # The rightmost letter (first letter of a codon) should be a G
-                    if i%3 == 0 and nuc_ref_seq[i] == "G":
+                    if nuc_ref_seq[i] == "G":
                         
                         # The leftmost letter (last letter of a codon) should be an A
                         if nuc_ref_seq[i-1] == "A":
                             
-                            # If both of these requirements are met, add the location of G to acceptor_sites
-                            acceptor_sites.append(i)
+                            # If both of these requirements are met, add the location after G to acceptor_sites
+                            acceptor_sites.append(i+1)
                 
                 # Is the acceptor site list empty? If so, this is not a real PEVK sequence!
                 if acceptor_sites == []:
@@ -212,24 +212,14 @@ def generate_candidate_seqs(seq, seq_start, seq_end, identification, nucleotide_
                     # The best guess G of the start splice site is the min of the differences
                     acceptor_g_location = acceptor_sites[start_differences.index(min(start_differences))]
                     
-                    # Now go forward to look for the DONOR splice site
+                    # Now go forward to look for the DONOR splice site (GT)
                     for i in range(NT_starting_point, len(nuc_ref_seq)-3):
-                        # The leftmost letter (third letter of a codon) should be an A
-                        if i%3 == 2 and nuc_ref_seq[i] == "A":
-                            
-                            # The second letter (first letter of a codon) should be a G
-                            if (i+1)%3 == 0 and nuc_ref_seq[i+1] == "G":
-                                
-                                # The third letter (second letter of a codon) should be a G
-                                if (i+2)%3 == 1 and nuc_ref_seq[i+2] == "G":
-                                    
-                                    # The fourth letter (third letter of a codon) should be a T
-                                    if (i+3)%3 == 2 and nuc_ref_seq[i+3] == "T":
-                                        
-                                        # If all of these requirements are met, add the location of the first G to donor sites:
-                                        donor_sites.append(i+1)
+                        if nuc_ref_seq[i] == "G":
+                            if nuc_ref_seq[i+1] == "T":
+                                # Add the location of the G to donor sites:
+                                donor_sites.append(i)
                     
-
+                    
                     # If there are no donor sites:
                     if donor_sites == []:
                         result.append("x")
@@ -256,9 +246,6 @@ def generate_candidate_seqs(seq, seq_start, seq_end, identification, nucleotide_
                             # The best guess G of the start splice site is the min of differences
                             donor_g1_location = donor_sites[end_differences.index(min(end_differences))]
                         
-                        # Now extract the region between the donor and acceptor sites
-                        final_seq =  str(Seq(nuc_ref_seq[acceptor_g_location+3:donor_g1_location]).translate())
-
                         # Define the relative start and end positions (within the local amino acid sequence) of the final sequence
                         relative_seq_start = (acceptor_g_location//3)+1
                         relative_seq_end = donor_g1_location//3
@@ -271,7 +258,7 @@ def generate_candidate_seqs(seq, seq_start, seq_end, identification, nucleotide_
                         final_seq = seq[relative_seq_start:relative_seq_end]
                         # Put the sequence and the start and end locations in the result list
                         result.append((final_seq, absolute_seq_start, absolute_seq_end))
-
+#### Note (problem): This loses a few nucleotides on either end if the splice site(s) are not in-frame ###
         # Woohoo!
         return result
 
