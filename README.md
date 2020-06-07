@@ -1,4 +1,4 @@
-This version is compatible with Python 2.7 and above and Python 3
+This version is compatible with Python 2.7 and above
 
 # Downloading required Python modules
 PEVK_Finder uses several modules that are not automatically installed with most versions of Python (Biopython and Statistics). The easiest way to install these packages is with the **pip** tool. If you do not already have pip installed on your machine, run the following commands:
