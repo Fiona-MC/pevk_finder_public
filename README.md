@@ -1,3 +1,5 @@
+This version is compatible with Python 2.7 and above and Python 3
+
 # Downloading required Python modules
 PEVK_Finder uses several modules that are not automatically installed with most versions of Python (Biopython and Statistics). The easiest way to install these packages is with the **pip** tool. If you do not already have pip installed on your machine, run the following commands:
 
@@ -44,7 +46,7 @@ The float value of the minimum PEVK ratio that PEVK_Finder will use to identify 
 The integer value of the minimum PEVK exon length that PEVK_Finder will use to identify likely PEVK exons. **Default: 12**<br/>
 <br/>
 **-o (--outpath)**<br/>
-The path to the directory where the output files will be stored. **Default: ./data/**<br/>
+The path to the directory where the output files will be stored. **Default: ./**<br/>
 <br/>
 **-v (--verbose)**<br/>
 When verbose is True, will emit messages about script progress. **Default: True**<br/>
@@ -80,5 +82,5 @@ python -W ignore pevk_finder_v_1.py -i [species_name]_ttn.fasta
 
 To run PEVK_Finder on **multiple TTN sequences** using default parameters, run the following command from the pevk_finder_public directory:
 ```bash
-python -W ignore pevk_finder_v_1.py -i [directory_with_tnn_seqs]
+python -W ignore pevk_finder_v_1.py -i [directory_with_ttn_seqs]
 ```
