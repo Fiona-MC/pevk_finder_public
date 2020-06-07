@@ -1,0 +1,43 @@
+trying to make tool compatible with python 3
+LOGGING changes!
+
+
+put parentheses on all print statements
+Changed error message to throw exception if not python 3
+
+# Define the full sequence with no splice sites
+--> 355                                 final_seq = seq[relative_seq_start:relative_seq_end]
+
+These aren't integers, so I changed how they're calculated
+changed / to // when ambiguous
+
+I think it's working
+--comparison using default parameters seems to produce the same output
+
+NOT FULLY TESTED FOR DIFFERENT INPUTS AND PATHS
+The only thing I didn't test for was differences in unicode versus ascii encoding of strings and some differences in int versus long encoding of numbers. I think those should be ok though in this context.
+
+Tested on dog and human, and on running the script for folder with dog and human 
+
+Source of human titin
+https://www.ncbi.nlm.nih.gov/gene/7273
+dog
+https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=478820
+
+COMPARE THE CONTENT OF TWO FOLDERS
+diff -s ./data_py2/ ./data_py3/
+
+command to run within ipython (shell for python 3)
+ipython
+run pevk_finder_v_1.py -i ./ttn_seqs/Dog_ttn.fasta -w 10 -r .54 -l 12 -o ./data/
+
+command to run in python 2
+python pevk_finder_v_1.py -i ./ttn_seqs/Dog_ttn.fasta -w 10 -r .54 -l 12 -o ./data/
+
+I think this is now compatible with both py2 and py3
+
+Maybe need to add some future stuff??
+look at this article:
+https://docs.python.org/3/howto/pyporting.html
+
+
