@@ -58,13 +58,31 @@ import os
 Helper function pevk_counter accepts a string of amino acids (frame) and returns the int number of
 P, E, V and K (and A) in the string.
 """
-
+# The commented out one is the original version
+'''
 def pevk_counter(frame):
     counter = 0
     for a in frame:
         if a == "P" or a == "E" or a == "V" or a == "K" or a == "A":
             counter += 1
     return counter
+'''
+# This is my version with the percentages from greaser et al
+# Values chosen so that on average, it should be about 1 per AA
+def pevk_counter(frame):
+    counter = 0
+    for a in frame:
+        if a == "P":
+            counter += 1.31
+        if a == "E":
+            counter += 1.37
+        if a == "V":
+            counter += 0.93
+        if a == "K":
+            counter += 1.00
+        if a == "A":
+            counter += 0.37
+    return int(counter)
 
 
 """
