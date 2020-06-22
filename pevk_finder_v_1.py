@@ -209,68 +209,73 @@ def generate_candidate_seqs(seq, seq_start, seq_end, identification, nucleotide_
                         diff = abs(PEVK_start - x)
                         start_differences.append(diff)
                     
-                    # The best guess G of the start splice site is the min of the differences
-                    acceptor_g_location = acceptor_sites[start_differences.index(min(start_differences))]
-                    
-                    # Now go forward to look for the DONOR splice site
-                    for i in range(NT_starting_point, len(nuc_ref_seq)-3):
-                        # The leftmost letter (third letter of a codon) should be an A
-                        if i%3 == 2 and nuc_ref_seq[i] == "A":
+                    # Changed to look for potentially multiple splice sites. 
+                    # Uses a splice site if it is within SPLICE_MAX_DIFFERENCE nucleotides of the PEVK region OR just uses the min of the start diffs
+                    SPLICE_MAX_DIFFERENCE = 15
+                    for acceptor_index in range(len(start_differences)):
+                        if start_differences[acceptor_index] <= SPLICE_MAX_DIFFERENCE or start_differences[acceptor_index] == min(start_differences):
+                            # The best guess G of the start splice site is the min of the differences
+                            acceptor_g_location = acceptor_sites[acceptor_index]
                             
-                            # The second letter (first letter of a codon) should be a G
-                            if (i+1)%3 == 0 and nuc_ref_seq[i+1] == "G":
-                                
-                                # The third letter (second letter of a codon) should be a G
-                                if (i+2)%3 == 1 and nuc_ref_seq[i+2] == "G":
+                            # Now go forward to look for the DONOR splice site
+                            for i in range(NT_starting_point, len(nuc_ref_seq)-3):
+                                # The leftmost letter (third letter of a codon) should be an A
+                                if i%3 == 2 and nuc_ref_seq[i] == "A":
                                     
-                                    # The fourth letter (third letter of a codon) should be a T
-                                    if (i+3)%3 == 2 and nuc_ref_seq[i+3] == "T":
+                                    # The second letter (first letter of a codon) should be a G
+                                    if (i+1)%3 == 0 and nuc_ref_seq[i+1] == "G":
                                         
-                                        # If all of these requirements are met, add the location of the first G to donor sites:
-                                        donor_sites.append(i+1)
-                    
-
-                    # If there are no donor sites:
-                    if donor_sites == []:
-                        result.append("x")
-                        continue
-                    
-
-                    # If there is at least one donor site
-                    if donor_sites != []:
-
-                        # If there is only one possible donor site:
-                        if len(donor_sites) == 1:
+                                        # The third letter (second letter of a codon) should be a G
+                                        if (i+2)%3 == 1 and nuc_ref_seq[i+2] == "G":
+                                            
+                                            # The fourth letter (third letter of a codon) should be a T
+                                            if (i+3)%3 == 2 and nuc_ref_seq[i+3] == "T":
+                                                
+                                                # If all of these requirements are met, add the location of the first G to donor sites:
+                                                donor_sites.append(i+1)
                             
-                            # This becomes the acceptor location
-                            donor_g1_location = donor_sites[0]
-                        
-                        # If there is more than one possible acceptor site:
-                        if len(donor_sites) > 1:
-                            end_differences = []
-                            PEVK_end = (groupings[j][-1]+input_frame_length)*3
-                            for x in donor_sites:
-                                diff = abs(PEVK_end - x)
-                                end_differences.append(diff)
+
+                            # If there are no donor sites:
+                            if donor_sites == []:
+                                result.append("x")
+                                continue
                             
-                            # The best guess G of the start splice site is the min of differences
-                            donor_g1_location = donor_sites[end_differences.index(min(end_differences))]
-                        
-                        # Now extract the region between the donor and acceptor sites
-                        final_seq =  str(Seq(nuc_ref_seq[acceptor_g_location+3:donor_g1_location]).translate())
 
-                        # Define the relative start and end positions (within the local amino acid sequence) of the final sequence
-                        relative_seq_start = (acceptor_g_location//3)+1
-                        relative_seq_end = donor_g1_location//3
-                        
-                        # Define the relative start and end positions of the sequence within the whole amino acid sequence
-                        absolute_seq_start = seq_start + relative_seq_start
-                        absolute_seq_end = seq_start + relative_seq_end
+                            # If there is at least one donor site
+                            if donor_sites != []:
 
-                        # Define the full sequence with no splice sites
-                        final_seq = seq[relative_seq_start:relative_seq_end]
-                        # Put the sequence and the start and end locations in the result list
-                        result.append((final_seq, absolute_seq_start, absolute_seq_end))
+                                # If there is only one possible donor site:
+                                if len(donor_sites) == 1:
+                                    
+                                    # This becomes the acceptor location
+                                    donor_g1_location = donor_sites[0]
+                                
+                                # If there is more than one possible donor site:
+                                if len(donor_sites) > 1:
+                                    end_differences = []
+                                    PEVK_end = (groupings[j][-1]+input_frame_length)*3
+                                    for x in donor_sites:
+                                        diff = abs(PEVK_end - x)
+                                        end_differences.append(diff)
+                                    
+                                    # The best guess G of the start splice site is the min of differences
+                                    donor_g1_location = donor_sites[end_differences.index(min(end_differences))]
+                                
+                                # Now extract the region between the donor and acceptor sites
+                                final_seq =  str(Seq(nuc_ref_seq[acceptor_g_location+3:donor_g1_location]).translate())
+
+                                # Define the relative start and end positions (within the local amino acid sequence) of the final sequence
+                                relative_seq_start = (acceptor_g_location//3)+1
+                                relative_seq_end = donor_g1_location//3
+                                
+                                # Define the relative start and end positions of the sequence within the whole amino acid sequence
+                                absolute_seq_start = seq_start + relative_seq_start
+                                absolute_seq_end = seq_start + relative_seq_end
+
+                                # Define the full sequence with no splice sites
+                                final_seq = seq[relative_seq_start:relative_seq_end]
+                                # Put the sequence and the start and end locations in the result list
+                                result.append((final_seq, absolute_seq_start, absolute_seq_end))
 
         # Woohoo!
         return result
