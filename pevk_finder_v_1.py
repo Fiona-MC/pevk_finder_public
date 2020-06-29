@@ -79,7 +79,6 @@ def frame_define(seq):
             counter += 1
         if i == "*":
             return counter
-            break
 
 """
 Helper function generate_candidate_seqs accepts an amino acid sequence without "*"s (seq), the start location of the seq
@@ -619,7 +618,7 @@ def main():
 
     # get input/output/filename
     ap = argparse.ArgumentParser()
-    ap.add_argument("-i", "--input", default="./ttn_seqs/Homo_sapiens_ttn.fasta",
+    ap.add_argument("-i", "--input", default="./ttn_seqs/test_master_ttn.fasta",
                    help="Path to the file(s) that contain the full titin nucleotide sequence, the default is ./ttn_seqs/Homo_sapiens_ttn.fasta",
                    type=str)
     ap.add_argument("-w", "--window_length", default=10,
