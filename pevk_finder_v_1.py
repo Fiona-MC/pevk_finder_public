@@ -270,7 +270,8 @@ def generate_candidate_seqs(seq, seq_start, seq_end, identification, nucleotide_
                         final_seq = seq[relative_seq_start:relative_seq_end]
                         # Put the sequence and the start and end locations in the result list
                         result.append((final_seq, absolute_seq_start, absolute_seq_end))
-
+                        
+        #Note that it discards a few nucleotides at start and end if not in frame 0
         # Woohoo!
         return result
 
