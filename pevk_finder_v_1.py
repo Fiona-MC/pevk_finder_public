@@ -185,7 +185,7 @@ def generate_candidate_seqs(seq, seq_start, seq_end, identification, nucleotide_
                 # First go backwards to look for the ACCEPTOR splice site
                 for i in range(NT_starting_point,0,-1):
                     # The rightmost letter (first letter of a codon) should be a G
-                    if i%3 == 0 and nuc_ref_seq[i] == "G":
+                    if nuc_ref_seq[i] == "G":
                         
                         # The leftmost letter (last letter of a codon) should be an A
                         if nuc_ref_seq[i-1] == "A":
@@ -213,20 +213,14 @@ def generate_candidate_seqs(seq, seq_start, seq_end, identification, nucleotide_
                     
                     # Now go forward to look for the DONOR splice site
                     for i in range(NT_starting_point, len(nuc_ref_seq)-3):
-                        # The leftmost letter (third letter of a codon) should be an A
-                        if i%3 == 2 and nuc_ref_seq[i] == "A":
-                            
-                            # The second letter (first letter of a codon) should be a G
-                            if (i+1)%3 == 0 and nuc_ref_seq[i+1] == "G":
+                            # The third letter (second letter of a codon) should be a G
+                            if nuc_ref_seq[i+2] == "G":
                                 
-                                # The third letter (second letter of a codon) should be a G
-                                if (i+2)%3 == 1 and nuc_ref_seq[i+2] == "G":
+                                # The fourth letter (third letter of a codon) should be a T
+                                if nuc_ref_seq[i+3] == "T":
                                     
-                                    # The fourth letter (third letter of a codon) should be a T
-                                    if (i+3)%3 == 2 and nuc_ref_seq[i+3] == "T":
-                                        
-                                        # If all of these requirements are met, add the location of the first G to donor sites:
-                                        donor_sites.append(i+1)
+                                    # If all of these requirements are met, add the location of the first G to donor sites:
+                                    donor_sites.append(i+1)
                     
 
                     # If there are no donor sites:
